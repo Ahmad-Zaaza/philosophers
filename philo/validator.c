@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 00:21:22 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/01/26 00:57:07 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/01/26 01:04:05 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,12 @@ bool	parse_arguments(int argc, char **argv, t_app *app)
 	if (argc < 4 || argc > 5)
 		return (print_usage_msg(), false);
 	if (!get_no_of_philosophers(app, argv[1]))
-		return (print_usage_msg(), false);
+		return (false);
 	if (!get_time_to_die(app, argv[2]))
-		return (print_usage_msg(), false);
+		return (false);
 	if (!get_time_to_eat(app, argv[3]))
-		return (print_usage_msg(), false);
+		return (false);
 	if (!get_time_to_sleep(app, argv[4]))
-		return (print_usage_msg(), false);
+		return (false);
 	return (true);
 }

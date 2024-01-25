@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 22:11:05 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/01/26 00:58:35 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/01/26 01:06:22 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,14 @@ int	ft_atoi(char *str, int *err)
 	if (str[i] == '-')
 		sign = -1;
 	i += (str[i] == '-' || str[i] == '+');
-	while (str && str[i] >= '0' && str[i] <= '9')
+	if (!str || !ft_isdigit(str[i]))
+		return (*err = 1, 0);
+	while (str && ft_isdigit(str[i]))
 	{
 		tmp_result = result;
 		result = result * 10 + (str[i++] - 48);
 		if (result < tmp_result)
-		{
-			*err = 1;
-			return (-1);
-		}
+			return (*err = 1, -1);
 	}
 	return (result * sign);
 }
