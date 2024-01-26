@@ -1,0 +1,14 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build debug",
+      "command": "cc -Wall -Wextra -g3 -fsanitize=address ./philo/**/*.c -o a.out",
+      "type": "shell",
+      "presentation": {
+        "reveal": "always"
+      },
+      "group": "build"
+    }
+  ]
+}

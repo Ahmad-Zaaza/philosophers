@@ -6,13 +6,12 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 22:11:05 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/01/26 01:06:22 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/01/26 22:50:03 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/App.h"
 #include "./includes/Utils.h"
-#include <stdio.h>
 
 int	ft_atoi(char *str, int *err)
 {
@@ -60,4 +59,22 @@ void	print_app(t_app *app)
 	printf("time_to_die: [%d]\n", app->time_to_die);
 	printf("time_to_eat: [%d]\n", app->time_to_eat);
 	printf("time_to_sleep: [%d]\n", app->time_to_sleep);
+}
+
+void	free_philosophers(t_app *app)
+{
+	t_philosopher	*tmp_philo;
+	int				i;
+
+	if (!app->philosophers)
+		return ;
+	i = 0;
+	while (i < app->number_of_philosophers)
+	{
+		tmp_philo = app->philosophers;
+		app->philosophers = app->philosophers->next;
+		free(tmp_philo);
+		i++;
+	}
+	app->philosophers = NULL;
 }
