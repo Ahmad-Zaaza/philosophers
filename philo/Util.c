@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 22:11:05 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/01/26 22:50:03 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/02 19:15:13 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_atoi(char *str, int *err)
 	i = 0;
 	result = 0;
 	sign = 1;
-	while (str && (str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+	while (str && ((str[i] >= 9 && str[i] <= 13) || str[i] == 32))
 		i++;
 	if (str[i] == '-')
 		sign = -1;
@@ -61,20 +61,8 @@ void	print_app(t_app *app)
 	printf("time_to_sleep: [%d]\n", app->time_to_sleep);
 }
 
-void	free_philosophers(t_app *app)
+void	ft_free_ptr(void *ptr)
 {
-	t_philosopher	*tmp_philo;
-	int				i;
-
-	if (!app->philosophers)
-		return ;
-	i = 0;
-	while (i < app->number_of_philosophers)
-	{
-		tmp_philo = app->philosophers;
-		app->philosophers = app->philosophers->next;
-		free(tmp_philo);
-		i++;
-	}
-	app->philosophers = NULL;
+	if (ptr)
+		free(ptr);
 }

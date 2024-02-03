@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 00:21:22 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/01/26 01:04:05 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/03 16:02:20 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static bool	get_no_of_philosophers(t_app *app, char *arg)
 	int	err;
 	int	count;
 
-	err = 0;
+	err = false;
 	count = ft_atoi(arg, &err);
 	if (err)
 		return (print_error("Error in number of philosophers"), false);
@@ -45,7 +45,7 @@ static bool	get_time_to_die(t_app *app, char *arg)
 	int	err;
 	int	count;
 
-	err = 0;
+	err = false;
 	count = ft_atoi(arg, &err);
 	if (err)
 		return (print_error("Error in time_to_die"), false);
@@ -60,7 +60,7 @@ static bool	get_time_to_eat(t_app *app, char *arg)
 	int	err;
 	int	count;
 
-	err = 0;
+	err = false;
 	count = ft_atoi(arg, &err);
 	if (err)
 		return (print_error("Error in time_to_eat"), false);
@@ -75,7 +75,7 @@ static bool	get_time_to_sleep(t_app *app, char *arg)
 	int	err;
 	int	count;
 
-	err = 0;
+	err = false;
 	count = ft_atoi(arg, &err);
 	if (err)
 		return (print_error("Error in time_to_sleep"), false);

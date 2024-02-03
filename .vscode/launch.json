@@ -9,7 +9,7 @@
       "request": "launch",
       "name": "Debug",
       "program": "${workspaceFolder}/a.out",
-      "args": ["8", "410", "2000", "1000"],
+      "args": ["4", "410", "200", "200"],
       "cwd": "${workspaceFolder}",
       "preLaunchTask": "build debug"
     }
