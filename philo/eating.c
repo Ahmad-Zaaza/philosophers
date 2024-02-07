@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 15:17:59 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/03 17:33:38 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/08 00:34:39 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,25 @@ void	drop_fork(pthread_mutex_t *fork)
 	pthread_mutex_unlock(fork);
 }
 
-void	pickup_fork(pthread_mutex_t *fork)
+int	pickup_fork(t_philosopher *philosopher, pthread_mutex_t *fork)
 {
+	if (did_philosopher_die(philosopher)
+		|| get_philosopher_state(philosopher) == DEAD)
+		return (0);
 	pthread_mutex_lock(fork);
+	print_philosopher_state(philosopher, PICKED_UP_FORK_MSG);
+	return (1);
 }
 
-void	philosopher_eat(t_philosopher *philosopher)
+int	philosopher_eat(t_philosopher *philosopher)
 {
-	pickup_fork(philosopher->right_fork);
-	print_philosopher_state(philosopher, PICKED_UP_FORK_MSG);
-	pickup_fork(philosopher->left_fork);
-	print_philosopher_state(philosopher, PICKED_UP_FORK_MSG);
-
-
+	if (!pickup_fork(philosopher, philosopher->right_fork))
+		return (0);
+	if (!pickup_fork(philosopher, philosopher->left_fork))
+	{
+		drop_fork(philosopher->right_fork);
+		return (0);
+	}
 	set_philosopher_state(philosopher, EATING);
 	print_philosopher_state(philosopher, EATING_MSG);
 	update_philosopher_last_eaten_time(philosopher, get_time());
@@ -47,4 +53,5 @@ void	philosopher_eat(t_philosopher *philosopher)
 	drop_fork(philosopher->right_fork);
 	drop_fork(philosopher->left_fork);
 	increment_philosopher_eat_count(philosopher);
+	return (1);
 }

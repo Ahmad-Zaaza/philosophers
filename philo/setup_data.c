@@ -6,13 +6,12 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 12:12:38 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/02 19:11:39 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/08 00:29:22 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/App.h"
 #include "includes/Utils.h"
-#include <pthread.h>
 
 void	init_app(t_app *app)
 {
@@ -20,10 +19,12 @@ void	init_app(t_app *app)
 	app->time_to_eat = -1;
 	app->time_to_die = -1;
 	app->time_to_sleep = -1;
+	app->stopped_simulation = 0;
 	app->number_of_times_each_philosopher_must_eat = -1;
 	app->philosophers = NULL;
 	app->forks = NULL;
 	pthread_mutex_init(&app->print_mutex, NULL);
+	pthread_mutex_init(&app->stopped_simulation_mutex, NULL);
 }
 
 bool	create_philosophers(t_app *app)
@@ -66,8 +67,8 @@ void	init_forks(t_app *app)
 	i = 0;
 	while (i < app->number_of_philosophers)
 	{
-		app->philosophers[i].right_fork = &app->forks[i];
-		app->philosophers[i].left_fork = &app->forks[i + 1
+		app->philosophers[i].left_fork = &app->forks[i];
+		app->philosophers[i].right_fork = &app->forks[i + 1
 			% app->number_of_philosophers];
 		i++;
 	}

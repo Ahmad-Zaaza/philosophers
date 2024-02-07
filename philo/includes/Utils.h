@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 22:08:25 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/01/28 13:22:03 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/04 13:36:35 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ int		ft_isdigit(int c);
 void	ft_putstr_fd(char *str, int fd);
 void	ft_free_ptr(void *ptr);
 void	print_app(t_app *app);
-
+void	ft_print(pthread_mutex_t *print_mutex, char *msg);
 #endif

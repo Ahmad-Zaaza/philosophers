@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 18:50:09 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/03 16:34:57 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/04 13:19:27 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_philosopher	philosopher_value(t_app *app, unsigned short index)
 	philosopher.data.time_to_sleep = app->time_to_sleep;
 	philosopher.data.time_to_eat = app->time_to_eat;
 	philosopher.data.print_mutex = app->print_mutex;
+	philosopher.data.stopped_simulation_mutex = &app->stopped_simulation_mutex;
+	philosopher.data.stopped_simulation = &app->stopped_simulation;
 	pthread_mutex_init(&philosopher.state_mutex, NULL);
 	pthread_mutex_init(&philosopher.last_eaten_mutex, NULL);
 	pthread_mutex_init(&philosopher.eat_count_mutex, NULL);
@@ -60,4 +62,11 @@ void	update_philosopher_last_eaten_time(t_philosopher *philosopher,
 	pthread_mutex_lock(&philosopher->last_eaten_mutex);
 	philosopher->last_eaten_at = time;
 	pthread_mutex_unlock(&philosopher->last_eaten_mutex);
+}
+
+void	update_stopped_simulation(t_philosopher *philosopher)
+{
+	pthread_mutex_lock(philosopher->data.stopped_simulation_mutex);
+	*philosopher->data.stopped_simulation = 1;
+	pthread_mutex_unlock(philosopher->data.stopped_simulation_mutex);
 }
