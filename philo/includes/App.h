@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 00:35:56 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/05 21:08:48 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/11 12:34:25 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,18 @@ typedef enum philosopher_state
 	EATING = 1,
 	THINKING = 2,
 	DEAD = 3,
+	IDLE = 4,
+	FULL = 5,
 }						t_philosopher_state;
 
 typedef struct s_philosopher_data
 {
+	int					number_of_philosophers;
 	int					time_to_die;
 	int					time_to_eat;
 	u_int64_t			start_time;
 	int					time_to_sleep;
-	pthread_mutex_t		print_mutex;
+	pthread_mutex_t		*print_mutex;
 	pthread_mutex_t		*stopped_simulation_mutex;
 	int					*stopped_simulation;
 	int					number_of_times_each_philosopher_must_eat;

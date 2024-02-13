@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 00:27:51 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/01/26 01:04:25 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/11 11:24:44 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ number_of_philosophers time_to_die time_to_eat time_to_sleep \
 					STDERR_FILENO);
 }
 
-void	print_error(char *msg)
+void	print_error(char *msg, char *details)
 {
 	ft_putstr_fd("philo error: ", STDERR_FILENO);
 	ft_putstr_fd(msg, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd(details, STDERR_FILENO);
 	ft_putstr_fd("\n", STDERR_FILENO);
 }

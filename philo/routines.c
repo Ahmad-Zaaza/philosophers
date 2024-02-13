@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 17:41:21 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/08 00:33:46 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/11 12:38:36 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ void	*philosopher_routine(void *arg)
 	{
 		if (!philosopher_eat(philosopher))
 			break ;
+		if (get_philosopher_eat_count(philosopher) == philosopher->data.number_of_times_each_philosopher_must_eat)
+		{
+			set_philosopher_state(philosopher, FULL);
+			break ;
+		}
 		if (get_philosopher_state(philosopher) == DEAD)
 			break ;
 		philosopher_sleep_after_eating(philosopher);
@@ -57,17 +62,22 @@ void	*monitor_routine(void *arg)
 	app = (t_app *)arg;
 	philosophers = app->philosophers;
 	i = -1;
-	while (++i < app->number_of_philosophers)
+	while (++i < app->number_of_philosophers
+		&& !get_stopped_simulation(&philosophers[i]))
 	{
+		if (get_philosopher_state(&philosophers[i]) == FULL)
+			continue ;
 		if (did_philosopher_die(&philosophers[i])
 			|| get_stopped_simulation(&philosophers[i]))
 		{
-			kill_all_threads(app);
 			print_philosopher_state(&philosophers[i], DEAD_MSG);
+			kill_all_threads(app);
+			update_stopped_simulation(&philosophers[i]);
 			break ;
 		}
-		i = -1;
-		ft_usleep(1);
+		if (i + 1 == app->number_of_philosophers)
+			i = -1;
+		usleep(1000);
 	}
 	return (NULL);
 }

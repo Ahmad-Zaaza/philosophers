@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:55:34 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/08 00:27:18 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/11 11:38:25 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int	main(int argc, char **argv)
 		return (1);
 	if (!setup_app(&app))
 		return (1);
+	print_app(&app);
+
 	if (!start_threads(&app))
 		return (1);
 	wait_for_threads(&app);

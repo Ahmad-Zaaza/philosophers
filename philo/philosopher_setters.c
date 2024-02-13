@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 18:50:09 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/04 13:19:27 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/11 12:13:49 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_philosopher	philosopher_value(t_app *app, unsigned short index)
 	t_philosopher	philosopher;
 
 	philosopher.id = index + 1;
-	philosopher.state = THINKING;
+	philosopher.state = IDLE;
 	philosopher.eat_count = 0;
 	philosopher.left_fork = NULL;
 	philosopher.right_fork = NULL;
@@ -26,7 +26,8 @@ t_philosopher	philosopher_value(t_app *app, unsigned short index)
 	philosopher.data.time_to_die = app->time_to_die;
 	philosopher.data.time_to_sleep = app->time_to_sleep;
 	philosopher.data.time_to_eat = app->time_to_eat;
-	philosopher.data.print_mutex = app->print_mutex;
+	philosopher.data.print_mutex = &app->print_mutex;
+	philosopher.data.number_of_philosophers = app->number_of_philosophers;
 	philosopher.data.stopped_simulation_mutex = &app->stopped_simulation_mutex;
 	philosopher.data.stopped_simulation = &app->stopped_simulation;
 	pthread_mutex_init(&philosopher.state_mutex, NULL);
@@ -44,10 +45,13 @@ void	set_philosopher_state(t_philosopher *philosopher,
 }
 void	print_philosopher_state(t_philosopher *philosopher, char *message)
 {
-	pthread_mutex_lock(&philosopher->data.print_mutex);
-	printf("[%llu] %d %s\n", get_time() - philosopher->data.start_time,
-		philosopher->id, message);
-	pthread_mutex_unlock(&philosopher->data.print_mutex);
+	pthread_mutex_lock(philosopher->data.print_mutex);
+	if (!get_stopped_simulation(philosopher))
+	{
+		printf("[%llu] %d %s\n", get_time() - philosopher->data.start_time,
+			philosopher->id, message);
+	}
+	pthread_mutex_unlock(philosopher->data.print_mutex);
 }
 void	increment_philosopher_eat_count(t_philosopher *philosopher)
 {

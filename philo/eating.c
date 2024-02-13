@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 15:17:59 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/08 00:34:39 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/10 15:48:01 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,19 @@ int	pickup_fork(t_philosopher *philosopher, pthread_mutex_t *fork)
 
 int	philosopher_eat(t_philosopher *philosopher)
 {
-	if (!pickup_fork(philosopher, philosopher->right_fork))
-		return (0);
-	if (!pickup_fork(philosopher, philosopher->left_fork))
+	if (philosopher->data.number_of_philosophers == 1)
 	{
-		drop_fork(philosopher->right_fork);
+		if (!pickup_fork(philosopher, philosopher->left_fork))
+			return (0);
+		philosopher_sleep(philosopher->data.time_to_die);
+		set_philosopher_state(philosopher, DEAD);
+		return (0);
+	}
+	if (!pickup_fork(philosopher, philosopher->left_fork))
+		return (0);
+	if (!pickup_fork(philosopher, philosopher->right_fork))
+	{
+		drop_fork(philosopher->left_fork);
 		return (0);
 	}
 	set_philosopher_state(philosopher, EATING);

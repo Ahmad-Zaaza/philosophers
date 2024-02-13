@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 12:12:38 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/08 00:29:22 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/10 22:45:54 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ bool	create_forks(t_app *app)
 			* app->number_of_philosophers);
 	if (!app->forks)
 		return (false);
+	memset(app->forks, 0, sizeof(pthread_mutex_t)
+		* app->number_of_philosophers);
 	return (true);
 }
 
@@ -61,21 +63,34 @@ void	init_forks(t_app *app)
 {
 	int	i;
 
+	i = -1;
+	while (++i < app->number_of_philosophers)
+		pthread_mutex_init(&app->forks[i], NULL);
 	i = 0;
-	while (i < app->number_of_philosophers)
-		pthread_mutex_init(&app->forks[i++], NULL);
-	i = 0;
-	while (i < app->number_of_philosophers)
+	app->philosophers[i].right_fork = &app->forks[0];
+	app->philosophers[i].left_fork = &app->forks[app->number_of_philosophers
+		- 1];
+	while (++i < app->number_of_philosophers)
 	{
-		app->philosophers[i].left_fork = &app->forks[i];
-		app->philosophers[i].right_fork = &app->forks[i + 1
-			% app->number_of_philosophers];
-		i++;
+		app->philosophers[i].right_fork = &app->forks[i];
+		app->philosophers[i].left_fork = &app->forks[i - 1];
 	}
 }
 
 void	cleanup_app(t_app *app)
 {
+	int	i;
+
+	i = -1;
+	while (++i < app->number_of_philosophers)
+	{
+		pthread_mutex_destroy(&app->philosophers[i].eat_count_mutex);
+		pthread_mutex_destroy(&app->philosophers[i].state_mutex);
+		pthread_mutex_destroy(&app->philosophers[i].last_eaten_mutex);
+		pthread_mutex_destroy(&app->forks[i]);
+	}
+	pthread_mutex_destroy(&app->print_mutex);
+	pthread_mutex_destroy(&app->stopped_simulation_mutex);
 	ft_free_ptr(app->philosophers);
 	ft_free_ptr(app->forks);
 }

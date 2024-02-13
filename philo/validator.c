@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 00:21:22 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/03 16:02:20 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/11 11:42:34 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ time_to_sleep
 
 */
 
-static bool	get_no_of_philosophers(t_app *app, char *arg)
+static bool	get_value_of(char *arg, char *type, int *ptr)
 {
 	int	err;
 	int	count;
@@ -34,68 +34,35 @@ static bool	get_no_of_philosophers(t_app *app, char *arg)
 	err = false;
 	count = ft_atoi(arg, &err);
 	if (err)
-		return (print_error("Error in number of philosophers"), false);
-	if (count < 1)
-		return (print_error("Number of philosophers can atleast be 1"), false);
-	app->number_of_philosophers = count;
-	return (true);
-}
-static bool	get_time_to_die(t_app *app, char *arg)
-{
-	int	err;
-	int	count;
-
-	err = false;
-	count = ft_atoi(arg, &err);
-	if (err)
-		return (print_error("Error in time_to_die"), false);
+		return (print_error(type, "Cannot handle argument"), false);
 	if (count < 0)
-		return (print_error("time_to_die can only be positive"), false);
-	app->time_to_die = count;
-	return (true);
-}
-
-static bool	get_time_to_eat(t_app *app, char *arg)
-{
-	int	err;
-	int	count;
-
-	err = false;
-	count = ft_atoi(arg, &err);
-	if (err)
-		return (print_error("Error in time_to_eat"), false);
-	if (count < 0)
-		return (print_error("time_to_eat can only be positive"), false);
-	app->time_to_eat = count;
-	return (true);
-}
-
-static bool	get_time_to_sleep(t_app *app, char *arg)
-{
-	int	err;
-	int	count;
-
-	err = false;
-	count = ft_atoi(arg, &err);
-	if (err)
-		return (print_error("Error in time_to_sleep"), false);
-	if (count < 0)
-		return (print_error("time_to_sleep can only be positive"), false);
-	app->time_to_sleep = count;
+		return (print_error(type, "can only be positive"), false);
+	*ptr = count;
 	return (true);
 }
 
 bool	parse_arguments(int argc, char **argv, t_app *app)
 {
-	if (argc < 4 || argc > 5)
+	if (argc < 5 || argc > 6)
 		return (print_usage_msg(), false);
-	if (!get_no_of_philosophers(app, argv[1]))
+	if (!get_value_of(argv[1], "number_of_philosophers",
+			&app->number_of_philosophers))
 		return (false);
-	if (!get_time_to_die(app, argv[2]))
+	if (!get_value_of(argv[2], "time_to_die", &app->time_to_die))
 		return (false);
-	if (!get_time_to_eat(app, argv[3]))
+	if (!get_value_of(argv[3], "time_to_eat", &app->time_to_eat))
 		return (false);
-	if (!get_time_to_sleep(app, argv[4]))
+	if (!get_value_of(argv[4], "time_to_sleep", &app->time_to_sleep))
 		return (false);
+	if (argc == 6)
+		if (!get_value_of(argv[5], "number_of_times_each_philosopher_must_eat",
+				&app->number_of_times_each_philosopher_must_eat))
+			return (false);
+	if (app->number_of_philosophers > 200)
+	{
+		print_error("number_of_philosophers",
+			"number_of_philosophers cannot be more than 200");
+		return (false);
+	}
 	return (true);
 }
