@@ -1,4 +1,5 @@
-Makefile
 a.out
 a.out.dSYM
-./philo
+philosophers
+**/*.o
+**/objs
