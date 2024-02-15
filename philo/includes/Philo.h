@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   App.h                                              :+:      :+:    :+:   */
+/*   Philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/26 00:35:56 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/11 12:34:25 by ahmadzaaza       ###   ########.fr       */
+/*   Created: 2024/02/15 23:18:27 by ahmadzaaza        #+#    #+#             */
+/*   Updated: 2024/02/15 23:18:32 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef APP_H
-# define APP_H
+#ifndef PHILO_H
+# define PHILO_H
 
 # include <pthread.h>
 # include <stdbool.h>
@@ -82,6 +82,22 @@ typedef struct s_app
 }						t_app;
 
 int						ft_usleep(size_t milliseconds);
+
+bool					parse_arguments(int argc, char **argv, t_app *app);
+
+/* UTILS */
+
+int						ft_atoi(char *str, int *err);
+int						ft_isdigit(int c);
+int						ft_isdigit(int c);
+void					ft_putstr_fd(char *str, int fd);
+void					ft_free_ptr(void *ptr);
+void					print_app(t_app *app);
+void					ft_print(pthread_mutex_t *print_mutex, char *msg);
+/* ERRORS */
+
+void					print_usage_msg(void);
+void					print_error(char *msg, char *details);
 
 /* ROUTINES */
 void					*philosopher_routine(void *arg);

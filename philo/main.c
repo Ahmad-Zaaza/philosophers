@@ -6,13 +6,11 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:55:34 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/11 11:38:25 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/15 23:18:18 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/App.h"
-#include "includes/Utils.h"
-#include "includes/Validator.h"
+#include "includes/Philo.h"
 
 // sets up philosophers and mutexes
 static bool	setup_app(t_app *app)

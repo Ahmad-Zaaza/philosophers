@@ -6,12 +6,11 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 10:03:19 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/11 11:37:07 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/15 23:18:18 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/App.h"
-#include "includes/Error.h"
+#include "./includes/Philo.h"
 
 u_int64_t	get_time(void)
 {

@@ -6,11 +6,11 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 18:50:09 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/11 12:13:49 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/15 23:18:18 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/App.h"
+#include "./includes/Philo.h"
 
 t_philosopher	philosopher_value(t_app *app, unsigned short index)
 {

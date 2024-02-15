@@ -6,12 +6,11 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 12:12:38 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/10 22:45:54 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/15 23:18:18 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/App.h"
-#include "includes/Utils.h"
+#include "./includes/Philo.h"
 
 void	init_app(t_app *app)
 {

@@ -6,14 +6,11 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 22:11:05 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/04 13:37:51 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/15 23:18:18 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/App.h"
-#include "./includes/Utils.h"
-#include <pthread.h>
-#include <stdio.h>
+#include "./includes/Philo.h"
 
 int	ft_atoi(char *str, int *err)
 {

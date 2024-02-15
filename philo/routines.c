@@ -6,12 +6,11 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 17:41:21 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/11 12:38:36 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/15 23:18:18 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/App.h"
-#include "includes/Utils.h"
+#include "./includes/Philo.h"
 
 void	*philosopher_routine(void *arg)
 {

@@ -6,13 +6,11 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 00:21:22 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/11 11:42:34 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/15 23:18:18 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/Error.h"
-#include "./includes/Validator.h"
-#include "includes/Utils.h"
+#include "./includes/Philo.h"
 
 /*
 

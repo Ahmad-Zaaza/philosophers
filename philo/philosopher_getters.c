@@ -6,12 +6,11 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 10:33:10 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/04 21:47:16 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/15 23:18:18 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/App.h"
-#include "includes/Utils.h"
+#include "./includes/Philo.h"
 
 t_philosopher_state	get_philosopher_state(t_philosopher *philosopher)
 {

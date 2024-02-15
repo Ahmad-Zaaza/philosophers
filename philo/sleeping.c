@@ -6,11 +6,11 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 15:55:47 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/03 17:34:36 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/15 23:18:18 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/App.h"
+#include "./includes/Philo.h"
 
 // Improved version of sleep function
 int	ft_usleep(size_t milliseconds)
