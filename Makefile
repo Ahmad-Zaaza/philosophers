@@ -1,4 +1,4 @@
-NAME = philosophers
+NAME = $(PHILO_DIR)/philo
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
@@ -22,7 +22,7 @@ RED = \033[0;31m
 RESET = \033[0m
 ORANGE = \033[0;33m
 
-all: $(PHILO_OBJS_DIR) $(NAME)
+all: $(PHILO_OBJS_DIR_PATH) $(NAME)
 
 $(NAME): $(PHILO_OBJS_PATH)
 	@$(CC) $(CFLAGS) $(PHILO_OBJS_PATH) -o $@
@@ -36,14 +36,13 @@ $(PHILO_OBJS_PATH):$(PHILO_SRCS_PATH)
 $(PHILO_OBJS):
 	$(CC) $(CFLAGS) -c $(PHILO_DIR)$(@:%.o=%.c) -o $(PHILO_OBJS_DIR_PATH)$@
 
-$(PHILO_OBJS_DIR):
-	@echo "$(GREEN)Setting up obj directories...$(RESET)"
+$(PHILO_OBJS_DIR_PATH):
 	@mkdir -p $(PHILO_OBJS_DIR_PATH)
+	@echo "$(GREEN)Setting up obj directories...$(RESET)"
 
 clean:
 	@echo "$(RED)Cleaning up...$(RESET)"
 	@rm -rf $(PHILO_OBJS_DIR_PATH)
-	@rm -f $(NAME)
 
 fclean: clean
 	@rm -f $(NAME)
