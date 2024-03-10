@@ -6,18 +6,19 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 10:33:10 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/15 23:20:45 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/19 22:20:15 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/Philo_Bonus.h"
+
 t_philosopher_state	get_philosopher_state(t_philosopher *philosopher)
 {
 	t_philosopher_state	state;
 
-	pthread_mutex_lock(&philosopher->state_mutex);
+	sem_wait(philosopher->philo_sem);
 	state = philosopher->state;
-	pthread_mutex_unlock(&philosopher->state_mutex);
+	sem_post(philosopher->philo_sem);
 	return (state);
 }
 
@@ -25,9 +26,9 @@ int	get_philosopher_eat_count(t_philosopher *philosopher)
 {
 	int	eat_count;
 
-	pthread_mutex_lock(&philosopher->eat_count_mutex);
+	sem_wait(philosopher->philo_sem);
 	eat_count = philosopher->eat_count;
-	pthread_mutex_unlock(&philosopher->eat_count_mutex);
+	sem_post(philosopher->philo_sem);
 	return (eat_count);
 }
 
@@ -35,18 +36,18 @@ int	get_stopped_simulation(t_philosopher *philosopher)
 {
 	int	stopped_simulation;
 
-	pthread_mutex_lock(philosopher->data.stopped_simulation_mutex);
+	sem_wait(philosopher->philo_sem);
 	stopped_simulation = *philosopher->data.stopped_simulation;
-	pthread_mutex_unlock(philosopher->data.stopped_simulation_mutex);
+	sem_post(philosopher->philo_sem);
 	return (stopped_simulation);
 }
 u_int64_t	get_philosopher_last_eaten(t_philosopher *philosopher)
 {
 	u_int64_t	last_eaten_at;
 
-	pthread_mutex_lock(&philosopher->last_eaten_mutex);
+	sem_wait(philosopher->philo_sem);
 	last_eaten_at = philosopher->last_eaten_at;
-	pthread_mutex_unlock(&philosopher->last_eaten_mutex);
+	sem_post(philosopher->philo_sem);
 	return (last_eaten_at);
 }
 
@@ -60,4 +61,9 @@ int	did_philosopher_die(t_philosopher *philosopher)
 	if (died)
 		set_philosopher_state(philosopher, DEAD);
 	return (died);
+}
+
+char	*get_philo_sem_name(unsigned int id)
+{
+	return (ft_strjoin("/philo_", ft_itoa(id)));
 }

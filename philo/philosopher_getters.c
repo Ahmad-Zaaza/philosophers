@@ -6,11 +6,12 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 10:33:10 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/15 23:18:18 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/03/10 11:12:33 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/Philo.h"
+#include <stdio.h>
 
 t_philosopher_state	get_philosopher_state(t_philosopher *philosopher)
 {
@@ -59,6 +60,11 @@ int	did_philosopher_die(t_philosopher *philosopher)
 			- get_philosopher_last_eaten(philosopher)) > philosopher->data.time_to_die
 		&& get_philosopher_state(philosopher) != EATING;
 	if (died)
+	{
+		printf("LAST EATEN: %lld,TIME:%lld, TIME_TO_DIE: %d\n",
+			get_philosopher_last_eaten(philosopher), get_time(),
+			philosopher->data.time_to_die);
 		set_philosopher_state(philosopher, DEAD);
+	}
 	return (died);
 }

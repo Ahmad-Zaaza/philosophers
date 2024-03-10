@@ -6,13 +6,14 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:27 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/15 23:46:35 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/19 23:04:18 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_BONUS_H
 # define PHILO_BONUS_H
 
+# include <errno.h>
 # include <pthread.h>
 # include <semaphore.h>
 # include <stdbool.h>
@@ -45,8 +46,8 @@ typedef struct s_philosopher_data
 	int					time_to_eat;
 	u_int64_t			start_time;
 	int					time_to_sleep;
-	pthread_mutex_t		*print_mutex;
-	pthread_mutex_t		*stopped_simulation_mutex;
+	sem_t				*print_sem;
+	sem_t				*forks_sem;
 	int					*stopped_simulation;
 	int					number_of_times_each_philosopher_must_eat;
 }						t_philosopher_data;
@@ -55,15 +56,11 @@ typedef struct s_philosopher
 {
 	int					id;
 	pthread_t			pth;
-	pthread_mutex_t		*left_fork;
-	pthread_mutex_t		*right_fork;
-	pthread_mutex_t		state_mutex;
-	pthread_mutex_t		eat_count_mutex;
-	pthread_mutex_t		last_eaten_mutex;
 	int					eat_count;
 	u_int64_t			last_eaten_at;
 	t_philosopher_data	data;
 	t_philosopher_state	state;
+	sem_t				*philo_sem;
 
 }						t_philosopher;
 
@@ -74,13 +71,12 @@ typedef struct s_app
 	int					time_to_eat;
 	int					time_to_sleep;
 	int					stopped_simulation;
-	pthread_mutex_t		print_mutex;
+	sem_t				*print_sem;
+	sem_t				*forks_sem;
 	pthread_mutex_t		stopped_simulation_mutex;
-	pthread_mutex_t		*forks;
 	pthread_t			monitor_pth;
 	int					number_of_times_each_philosopher_must_eat;
-	t_philosopher		*philosophers;
-	sem_t				forks_sem;
+	t_philosopher		philosopher;
 }						t_app;
 
 int						ft_usleep(size_t milliseconds);
@@ -96,6 +92,9 @@ void					ft_putstr_fd(char *str, int fd);
 void					ft_free_ptr(void *ptr);
 void					print_app(t_app *app);
 void					ft_print(pthread_mutex_t *print_mutex, char *msg);
+size_t					ft_strlen(const char *s);
+char					*ft_strjoin(char *s1, char *s2);
+char					*ft_itoa(int n);
 /* ERRORS */
 
 void					print_usage_msg(void);
@@ -110,12 +109,7 @@ void					philosopher_sleep_after_eating(t_philosopher *philosopher);
 void					philosopher_sleep(u_int64_t time_in_ms);
 u_int64_t				get_time(void);
 
-void					init_app(t_app *app);
-void					init_philosophers(t_app *app);
-void					init_forks(t_app *app);
-
-bool					create_philosophers(t_app *app);
-bool					create_forks(t_app *app);
+bool					setup_semaphores(t_app *app);
 
 void					cleanup_app(t_app *app);
 
@@ -125,6 +119,7 @@ PHILOSOPHER
 */
 
 t_philosopher			philosopher_value(t_app *app, unsigned short index);
+char					*get_philo_sem_name(unsigned int id);
 void					set_philosopher_state(t_philosopher *philosopher,
 							t_philosopher_state state);
 void					print_philosopher_state(t_philosopher *philosopher,

@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 17:41:21 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/15 23:18:18 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/03/10 11:32:37 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,21 @@ void	*monitor_routine(void *arg)
 	philosophers = app->philosophers;
 	i = -1;
 	while (++i < app->number_of_philosophers
-		&& !get_stopped_simulation(&philosophers[i]))
+		&& get_stopped_simulation(&philosophers[i]) == 0)
 	{
 		if (get_philosopher_state(&philosophers[i]) == FULL)
+		{
+			if (i + 1 == app->number_of_philosophers)
+				i = -1;
+			usleep(1000);
 			continue ;
+		}
 		if (did_philosopher_die(&philosophers[i])
 			|| get_stopped_simulation(&philosophers[i]))
 		{
 			print_philosopher_state(&philosophers[i], DEAD_MSG);
-			kill_all_threads(app);
 			update_stopped_simulation(&philosophers[i]);
+			kill_all_threads(app);
 			break ;
 		}
 		if (i + 1 == app->number_of_philosophers)

@@ -1,6 +1,6 @@
 NAME = $(PHILO_DIR)/philo
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g
 
 # sources
 PHILO_DIR = ./philo/

@@ -6,25 +6,11 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 12:12:38 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/15 23:18:18 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/18 22:16:25 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/Philo.h"
-
-void	init_app(t_app *app)
-{
-	app->number_of_philosophers = -1;
-	app->time_to_eat = -1;
-	app->time_to_die = -1;
-	app->time_to_sleep = -1;
-	app->stopped_simulation = 0;
-	app->number_of_times_each_philosopher_must_eat = -1;
-	app->philosophers = NULL;
-	app->forks = NULL;
-	pthread_mutex_init(&app->print_mutex, NULL);
-	pthread_mutex_init(&app->stopped_simulation_mutex, NULL);
-}
 
 bool	create_philosophers(t_app *app)
 {

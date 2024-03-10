@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 18:50:09 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/15 23:18:18 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/03/01 20:34:05 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	print_philosopher_state(t_philosopher *philosopher, char *message)
 	pthread_mutex_lock(philosopher->data.print_mutex);
 	if (!get_stopped_simulation(philosopher))
 	{
-		printf("[%llu] %d %s\n", get_time() - philosopher->data.start_time,
+		printf("%llu %d %s\n", get_time() - philosopher->data.start_time,
 			philosopher->id, message);
 	}
 	pthread_mutex_unlock(philosopher->data.print_mutex);

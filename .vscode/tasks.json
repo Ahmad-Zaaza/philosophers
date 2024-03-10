@@ -3,7 +3,7 @@
   "tasks": [
     {
       "label": "build debug",
-      "command": "cc -Wall -Werror -Wextra -g3 -fsanitize=thread ./philo/**/*.c -o a.out",
+      "command": "make",
       "type": "shell",
       "presentation": {
         "reveal": "always"

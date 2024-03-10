@@ -6,15 +6,19 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:55:34 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/15 23:18:18 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/18 22:16:33 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/Philo.h"
 
-// sets up philosophers and mutexes
 static bool	setup_app(t_app *app)
 {
+	app->stopped_simulation = 0;
+	app->philosophers = NULL;
+	app->forks = NULL;
+	pthread_mutex_init(&app->print_mutex, NULL);
+	pthread_mutex_init(&app->stopped_simulation_mutex, NULL);
 	if (!create_philosophers(app))
 		return (false);
 	if (!create_forks(app))
@@ -71,7 +75,6 @@ int	main(int argc, char **argv)
 {
 	t_app app;
 
-	init_app(&app);
 	if (!parse_arguments(argc, argv, &app))
 		return (1);
 	if (!setup_app(&app))

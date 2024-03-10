@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 22:11:05 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/15 23:20:45 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/02/19 22:19:10 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,42 @@ void	ft_free_ptr(void *ptr)
 {
 	if (ptr)
 		free(ptr);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	count;
+
+	count = 0;
+	while (*s != '\0')
+	{
+		count++;
+		s++;
+	}
+	return (count);
+}
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	char	*str;
+	int		total;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	if (s2 == NULL)
+		return (s1);
+	total = ft_strlen(s1) + ft_strlen(s2) + 1;
+	str = (char *)malloc(total * sizeof(char));
+	if (str == NULL)
+		return (NULL);
+	while (s1[j])
+		str[i++] = s1[j++];
+	j = 0;
+	while (s2[j])
+		str[i++] = s2[j++];
+	str[i] = 0;
+	free(s2);
+	return (str);
 }

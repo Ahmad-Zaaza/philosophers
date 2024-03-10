@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:27 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/15 23:18:32 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/03/10 10:46:24 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-# define PICKED_UP_FORK_MSG "has picked up a fork"
+# define PICKED_UP_FORK_MSG "has taken a fork"
 # define EATING_MSG "is eating"
 # define THINKING_MSG "is thinking"
 # define SLEEPING_MSG "is sleeping"
-# define DEAD_MSG "is dead"
+# define DEAD_MSG "died"
 
 typedef enum philosopher_state
 {
@@ -108,7 +108,6 @@ void					philosopher_sleep_after_eating(t_philosopher *philosopher);
 void					philosopher_sleep(u_int64_t time_in_ms);
 u_int64_t				get_time(void);
 
-void					init_app(t_app *app);
 void					init_philosophers(t_app *app);
 void					init_forks(t_app *app);
 
