@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 17:41:21 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/03/10 11:32:37 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/03/10 12:04:31 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	*philosopher_routine(void *arg)
 	philosopher = (t_philosopher *)arg;
 	if (philosopher->id % 2 == 0)
 		philosopher_sleep(philosopher->data.time_to_eat - 10);
-	while (get_philosopher_state(philosopher) != DEAD)
+	while (get_philosopher_state(philosopher) != DEAD
+		&& get_stopped_simulation(philosopher) != 1)
 	{
 		if (!philosopher_eat(philosopher))
 			break ;
@@ -61,18 +62,11 @@ void	*monitor_routine(void *arg)
 	app = (t_app *)arg;
 	philosophers = app->philosophers;
 	i = -1;
-	while (++i < app->number_of_philosophers
-		&& get_stopped_simulation(&philosophers[i]) == 0)
+	while (++i < app->number_of_philosophers)
 	{
 		if (get_philosopher_state(&philosophers[i]) == FULL)
-		{
-			if (i + 1 == app->number_of_philosophers)
-				i = -1;
-			usleep(1000);
 			continue ;
-		}
-		if (did_philosopher_die(&philosophers[i])
-			|| get_stopped_simulation(&philosophers[i]))
+		if (did_philosopher_die(&philosophers[i]))
 		{
 			print_philosopher_state(&philosophers[i], DEAD_MSG);
 			update_stopped_simulation(&philosophers[i]);

@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 10:33:10 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/03/10 11:12:33 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/03/10 11:44:05 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,5 @@ int	did_philosopher_die(t_philosopher *philosopher)
 	died = (int)(get_time()
 			- get_philosopher_last_eaten(philosopher)) > philosopher->data.time_to_die
 		&& get_philosopher_state(philosopher) != EATING;
-	if (died)
-	{
-		printf("LAST EATEN: %lld,TIME:%lld, TIME_TO_DIE: %d\n",
-			get_philosopher_last_eaten(philosopher), get_time(),
-			philosopher->data.time_to_die);
-		set_philosopher_state(philosopher, DEAD);
-	}
 	return (died);
 }
