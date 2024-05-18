@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 22:11:05 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/15 23:18:18 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/05/18 14:32:11 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ void	ft_putstr_fd(char *str, int fd)
 }
 void	print_app(t_app *app)
 {
-	printf("Philosophers: [%d]\n", app->number_of_philosophers);
-	printf("time_to_die: [%d]\n", app->time_to_die);
-	printf("time_to_eat: [%d]\n", app->time_to_eat);
-	printf("time_to_sleep: [%d]\n", app->time_to_sleep);
+	printf("Philosophers: [%d]\n", app->args.number_of_philosophers);
+	printf("time_to_die: [%d]\n", app->args.time_to_die);
+	printf("time_to_eat: [%d]\n", app->args.time_to_eat);
+	printf("time_to_sleep: [%d]\n", app->args.time_to_sleep);
 }
 void	ft_print(pthread_mutex_t *print_mutex, char *msg)
 {

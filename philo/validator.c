@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 00:21:22 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/02/15 23:18:18 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/05/18 12:31:13 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,24 @@ static bool	get_value_of(char *arg, char *type, int *ptr)
 	return (true);
 }
 
-bool	parse_arguments(int argc, char **argv, t_app *app)
+bool	parse_arguments(int argc, char **argv, t_app_args *args)
 {
 	if (argc < 5 || argc > 6)
 		return (print_usage_msg(), false);
 	if (!get_value_of(argv[1], "number_of_philosophers",
-			&app->number_of_philosophers))
+			&args->number_of_philosophers))
 		return (false);
-	if (!get_value_of(argv[2], "time_to_die", &app->time_to_die))
+	if (!get_value_of(argv[2], "time_to_die", &args->time_to_die))
 		return (false);
-	if (!get_value_of(argv[3], "time_to_eat", &app->time_to_eat))
+	if (!get_value_of(argv[3], "time_to_eat", &args->time_to_eat))
 		return (false);
-	if (!get_value_of(argv[4], "time_to_sleep", &app->time_to_sleep))
+	if (!get_value_of(argv[4], "time_to_sleep", &args->time_to_sleep))
 		return (false);
 	if (argc == 6)
 		if (!get_value_of(argv[5], "number_of_times_each_philosopher_must_eat",
-				&app->number_of_times_each_philosopher_must_eat))
+				&args->number_of_times_each_philosopher_must_eat))
 			return (false);
-	if (app->number_of_philosophers > 200)
+	if (args->number_of_philosophers > 200)
 	{
 		print_error("number_of_philosophers",
 			"number_of_philosophers cannot be more than 200");

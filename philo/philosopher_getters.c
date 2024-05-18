@@ -6,7 +6,7 @@
 /*   By: ahmadzaaza <ahmadzaaza@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 10:33:10 by ahmadzaaza        #+#    #+#             */
-/*   Updated: 2024/03/10 11:44:05 by ahmadzaaza       ###   ########.fr       */
+/*   Updated: 2024/05/18 17:00:43 by ahmadzaaza       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,6 @@ t_philosopher_state	get_philosopher_state(t_philosopher *philosopher)
 	return (state);
 }
 
-int	get_philosopher_eat_count(t_philosopher *philosopher)
-{
-	int	eat_count;
-
-	pthread_mutex_lock(&philosopher->eat_count_mutex);
-	eat_count = philosopher->eat_count;
-	pthread_mutex_unlock(&philosopher->eat_count_mutex);
-	return (eat_count);
-}
-
 int	get_stopped_simulation(t_philosopher *philosopher)
 {
 	int	stopped_simulation;
@@ -42,22 +32,35 @@ int	get_stopped_simulation(t_philosopher *philosopher)
 	pthread_mutex_unlock(philosopher->data.stopped_simulation_mutex);
 	return (stopped_simulation);
 }
-u_int64_t	get_philosopher_last_eaten(t_philosopher *philosopher)
-{
-	u_int64_t	last_eaten_at;
 
-	pthread_mutex_lock(&philosopher->last_eaten_mutex);
-	last_eaten_at = philosopher->last_eaten_at;
-	pthread_mutex_unlock(&philosopher->last_eaten_mutex);
-	return (last_eaten_at);
+int	get_full_philo_count(t_philosopher *philosopher)
+{
+	int	full_philo_count;
+
+	pthread_mutex_lock(philosopher->data.full_philo_count_mutex);
+	full_philo_count = *philosopher->data.full_philo_count;
+	pthread_mutex_unlock(philosopher->data.full_philo_count_mutex);
+	return (full_philo_count);
 }
 
-int	did_philosopher_die(t_philosopher *philosopher)
+int	philo_died_or_stopped_sim(t_philosopher *philo)
 {
-	int	died;
+	int	is_dead;
 
-	died = (int)(get_time()
-			- get_philosopher_last_eaten(philosopher)) > philosopher->data.time_to_die
-		&& get_philosopher_state(philosopher) != EATING;
-	return (died);
+	is_dead = false;
+	pthread_mutex_lock(philo->data.stopped_simulation_mutex);
+	if (*philo->data.stopped_simulation)
+		is_dead = true;
+	else if ((int)(get_time()
+			- philo->last_eaten_at) >= philo->args.time_to_die)
+	{
+		print_philosopher_state(philo, DEAD_MSG);
+		set_philosopher_state(philo, DEAD);
+		is_dead = true;
+	}
+	else if (get_full_philo_count(philo) == philo->args.number_of_philosophers)
+		is_dead = true;
+	*philo->data.stopped_simulation = is_dead;
+	pthread_mutex_unlock(philo->data.stopped_simulation_mutex);
+	return (is_dead);
 }
